@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# ginkoOnTime
+# ginkoTime
 
 import os
 import ConfigParser
