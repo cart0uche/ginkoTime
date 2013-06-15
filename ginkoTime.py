@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 # ginkoTime
 
@@ -20,7 +19,7 @@ class GinkoTime(wx.TaskBarIcon):
 
 		wx.TaskBarIcon.__init__(self)
 		self.tbIcon=wx.Icon('icon.png',wx.BITMAP_TYPE_PNG)
-		self.SetIcon(self.tbIcon, 'GinkoOnTime')
+		self.SetIcon(self.tbIcon, 'GinkoTime')
 
 		self.Bind(wx.EVT_TASKBAR_LEFT_DOWN, self.OnTaskBarLeftClick)
 		self.Bind(wx.EVT_TASKBAR_RIGHT_DOWN, self.OnTaskBarRightClick)
