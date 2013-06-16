@@ -7,6 +7,7 @@ import urllib
 import urllib2
 import wx
 from BeautifulSoup import BeautifulSoup
+import json
 
 
 GINKO_URL = 'www.ginkobus.com/templates/tribu/lib/get_tempo.php'
@@ -18,6 +19,7 @@ class GinkoTime(wx.TaskBarIcon):
 
 	def __init__(self):
 		self.loadConfig()
+		self.loadLines()
 
 		wx.TaskBarIcon.__init__(self)
 		self.tbIcon = wx.Icon('icon.png', wx.BITMAP_TYPE_PNG)
@@ -32,13 +34,14 @@ class GinkoTime(wx.TaskBarIcon):
 		if os.path.isfile('ginko.ini'):
 			config.read('ginko.ini')
 
-		self.__stop = config.get('config', 'stop')
-		self.__line = config.get('config', 'line')
-		self.__direction = config.get('config', 'direction')
+		self.proxy_enable = config.get('proxy', 'enable')
+		self.proxy_login = config.get('proxy', 'login')
+		self.proxy_password = config.get('proxy', 'password')
 
-		self.__proxy_enable = config.get('proxy', 'enable')
-		self.__proxy_login = config.get('proxy', 'login')
-		self.__proxy_password = config.get('proxy', 'password')
+	def loadLines(self):
+		json_data = open('lines.json').read()
+		self.lines = json.loads(json_data)
+		print self.lines
 
 	def CreatePopupMenu(self, evt=None):
 		menu = wx.Menu()
@@ -47,19 +50,20 @@ class GinkoTime(wx.TaskBarIcon):
 		return menu
 
 	def CreatePopupResult(self, evt=None):
-		if (self.__proxy_enable == 1):
-			url = 'http://' + self.__login + ':' + self.__proxy_password + '@' + GINKO_URL
+		if (self.proxy_enable == 1):
+			url = 'http://' + self.login + ':' + self.proxy_password + '@' + GINKO_URL
 		else:
 			url = 'http://' + GINKO_URL
 
-		scheduleList = self.getSchedule(url, self.__stop, self.__line, self.__direction)
-
 		menu = wx.Menu()
 		menu.Append(-1, "GinkoTime")
-		menu.AppendSeparator()
-		menu.Append(-1, "Ligne " + self.__line + " - Arret " + self.__stop)
-		for schedule in scheduleList:
-			menu.Append(-1, schedule)
+
+		for i in range(len(self.lines["lines"])):
+			menu.AppendSeparator()
+			scheduleList = self.getSchedule(url, self.lines["lines"][i]["stop"], self.lines["lines"][i]["line"], self.lines["lines"][i]["direction"])
+			menu.Append(-1, "Ligne " + self.lines["lines"][i]["line"] + " - Arret " + self.lines["lines"][i]["stop"])
+			for schedule in scheduleList:
+				menu.Append(-1, schedule)
 		return menu
 
 	def OnTaskBarLeftClick(self, event):
@@ -77,6 +81,7 @@ class GinkoTime(wx.TaskBarIcon):
 		self.Destroy()
 
 	def getSchedule(self, url, stop, line, direction):
+		print "getSchedule for stop " + stop + " line " + line + " direction " + direction
 		scheduleList = []
 		params = urllib.urlencode({'type': '3', 'arret': stop, 'ligne': line})
 		request = urllib2.Request(url, params)
@@ -91,9 +96,12 @@ class GinkoTime(wx.TaskBarIcon):
 				if (currentDirection.text == direction):
 					schedule1 = td1[i+2]
 					schedule2 = td1[i+3]
-					scheduleList.append(schedule1.text)
-					scheduleList.append(schedule2.text)
+					if not schedule1:
+						scheduleList.append(schedule1.text)
+					if not schedule2:
+						scheduleList.append(schedule2.text)
 					break
+		print scheduleList
 		return scheduleList
 
 

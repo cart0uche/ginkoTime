@@ -1,0 +1,7 @@
+{
+	"lines": [
+			{ "line": "5", "stop": "polygone", "direction": "ORCHAMPS" },
+			{ "line": "3", "stop": "polygone", "direction": "ORCHAMPS" },
+			{ "line": "10", "stop": "polygone", "direction": "ORCHAMPS" }
+	]
+}
