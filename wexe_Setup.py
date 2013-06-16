@@ -3,7 +3,7 @@
 
 ##################################
 # Importation de fonctions externes :
-import sys, os
+import sys
 from cx_Freeze import setup, Executable
 
 ##################################
@@ -13,23 +13,12 @@ if sys.platform == "win32":
 
 ##################################
 # Préparation des cibles
-executables = [Executable("ginkoTime.py", base = base)]
+executables = [Executable("ginkoTime.py", base=base)]
 
 ##################################
 # Construction du dictionnaire des options
-BuildOptions = dict(
-					compressed = False,
-					includes = ["wx", "BeautifulSoup"],
-					include_files = ["ginko.ini","icon.png"],
-					path = sys.path
-					)
+BuildOptions = dict(compressed=False, includes=["wx", "BeautifulSoup"], include_files=["ginko.ini", "icon.png"], path=sys.path)
 
 ##################################
 # Création du Setup
-setup (
-		name = "ginkoTime",
-		version = "0.1",
-		description = "Horaire des bus en temps réel",
-		options = dict(build_exe = BuildOptions),
-		executables = executables
-		)
+setup(name="ginkoTime", version="0.1", description="Horaire des bus en temps réel", options=dict(build_exe=BuildOptions), executables=executables)
