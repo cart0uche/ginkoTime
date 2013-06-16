@@ -17,7 +17,7 @@ executables = [Executable("ginkoTime.py", base=base)]
 
 ##################################
 # Construction du dictionnaire des options
-BuildOptions = dict(compressed=False, includes=["wx", "BeautifulSoup"], include_files=["ginko.ini", "icon.png"], path=sys.path)
+BuildOptions = dict(compressed=False, includes=["wx", "BeautifulSoup", "json"], include_files=["ginko.ini", "lines.json", "icon.png"], path=sys.path)
 
 ##################################
 # Création du Setup
