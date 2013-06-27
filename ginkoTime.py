@@ -57,7 +57,8 @@ class GinkoTime(wx.TaskBarIcon):
 			scheduleList = self.getSchedule(self.lines["lines"][i]["stop"], self.lines["lines"][i]["line"], self.lines["lines"][i]["direction"])
 			menu.Append(-1, "Ligne " + self.lines["lines"][i]["line"] + " - Arret " + self.lines["lines"][i]["stop"])
 			for schedule in scheduleList:
-				menu.Append(-1, schedule)
+				if schedule is not u'':
+					menu.Append(-1, schedule)
 		return menu
 
 	def getSchedule(self, stop, line, direction):
