@@ -52,7 +52,7 @@ class GinkoTime(wx.TaskBarIcon):
 		menu = wx.Menu()
 		menu.Append(-1, "GinkoTime")
 
-		for i, line in enumerate(self.lines["lines"]):
+		for line in self.lines["lines"]:
 			menu.AppendSeparator()
 			scheduleList = self.getSchedule(line["stop"], line["line"], line["direction"])
 			menu.Append(-1, "Ligne " + line["line"] + " - Arret " + line["stop"])
