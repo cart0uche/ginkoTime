@@ -52,10 +52,10 @@ class GinkoTime(wx.TaskBarIcon):
 		menu = wx.Menu()
 		menu.Append(-1, "GinkoTime")
 
-		for i in range(len(self.lines["lines"])):
+		for i, line in enumerate(self.lines["lines"]):
 			menu.AppendSeparator()
-			scheduleList = self.getSchedule(self.lines["lines"][i]["stop"], self.lines["lines"][i]["line"], self.lines["lines"][i]["direction"])
-			menu.Append(-1, "Ligne " + self.lines["lines"][i]["line"] + " - Arret " + self.lines["lines"][i]["stop"])
+			scheduleList = self.getSchedule(line["stop"], line["line"], line["direction"])
+			menu.Append(-1, "Ligne " + line["line"] + " - Arret " + line["stop"])
 			for schedule in scheduleList:
 				if schedule is not u'':
 					menu.Append(-1, schedule)
@@ -73,6 +73,7 @@ class GinkoTime(wx.TaskBarIcon):
 				print X.text + " found"
 				currentDirection = td1[i+1]
 				if (currentDirection.text == direction):
+					print direction + " found"
 					schedule1 = td1[i+2]
 					schedule2 = td1[i+3]
 					scheduleList.append(schedule1.text)

@@ -1,7 +1,7 @@
 {
 	"lines": [
-			{ "line": "5", "stop": "polygone", "direction": "ORCHAMPS" },
-			{ "line": "3", "stop": "polygone", "direction": "ORCHAMPS" },
-			{ "line": "10", "stop": "polygone", "direction": "ORCHAMPS" }
+			{ "line": "5", "stop": "polygone", "direction": "Orchamps" },
+			{ "line": "3", "stop": "polygone", "direction": "Centre Ville" },
+			{ "line": "10", "stop": "polygone", "direction": "Gare SNCF Viotte" }
 	]
 }
